@@ -1,15 +1,15 @@
 
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../contexts/AuthContext';
-import { db } from '../firebase';
+import { useAuth } from '../contexts/AuthContext.tsx';
+import { db } from '../firebase.ts';
 import { ref, get, set } from 'firebase/database';
-import { DailyLog } from '../types';
+import { DailyLog } from '../types.ts';
 import toast from 'react-hot-toast';
-import Button from '../components/ui/Button';
-import Card from '../components/ui/Card';
-import Input from '../components/ui/Input';
-import Checkbox from '../components/ui/Checkbox';
-import Spinner from '../components/ui/Spinner';
+import Button from '../components/ui/Button.tsx';
+import Card from '../components/ui/Card.tsx';
+import Input from '../components/ui/Input.tsx';
+import Checkbox from '../components/ui/Checkbox.tsx';
+import Spinner from '../components/ui/Spinner.tsx';
 // FIX: Import parseISO directly from its submodule to resolve module export error.
 import { differenceInDays } from 'date-fns';
 import parseISO from 'date-fns/parseISO';

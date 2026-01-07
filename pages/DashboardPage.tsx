@@ -1,11 +1,11 @@
 
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
-import { db } from '../firebase';
+import { useAuth } from '../contexts/AuthContext.tsx';
+import { db } from '../firebase.ts';
 import { ref, get } from 'firebase/database';
-import { DailyLog } from '../types';
-import Spinner from '../components/ui/Spinner';
-import Card from '../components/ui/Card';
+import { DailyLog } from '../types.ts';
+import Spinner from '../components/ui/Spinner.tsx';
+import Card from '../components/ui/Card.tsx';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell, Tooltip as RechartsTooltip } from 'recharts';
 // FIX: Import subDays directly from its submodule to resolve module export error.
 import { format } from 'date-fns';

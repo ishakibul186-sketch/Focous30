@@ -1,14 +1,14 @@
 
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
-import AuthPage from './pages/AuthPage';
-import HomePage from './pages/HomePage';
-import DashboardPage from './pages/DashboardPage';
-import ProfileSetupPage from './pages/ProfileSetupPage';
-import LoadingPage from './pages/LoadingPage';
-import Header from './components/layout/Header';
-import Footer from './components/layout/Footer';
+import { AuthProvider, useAuth } from './contexts/AuthContext.tsx';
+import AuthPage from './pages/AuthPage.tsx';
+import HomePage from './pages/HomePage.tsx';
+import DashboardPage from './pages/DashboardPage.tsx';
+import ProfileSetupPage from './pages/ProfileSetupPage.tsx';
+import LoadingPage from './pages/LoadingPage.tsx';
+import Header from './components/layout/Header.tsx';
+import Footer from './components/layout/Footer.tsx';
 import { Toaster } from 'react-hot-toast';
 
 const App: React.FC = () => {

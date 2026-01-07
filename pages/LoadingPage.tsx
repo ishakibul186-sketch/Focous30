@@ -1,6 +1,6 @@
 
 import React from 'react';
-import Spinner from '../components/ui/Spinner';
+import Spinner from '../components/ui/Spinner.tsx';
 
 const LoadingPage: React.FC = () => {
   return (

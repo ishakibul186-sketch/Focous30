@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
-import Login from '../components/auth/Login';
-import Signup from '../components/auth/Signup';
+import Login from '../components/auth/Login.tsx';
+import Signup from '../components/auth/Signup.tsx';
 
 const AuthPage: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
