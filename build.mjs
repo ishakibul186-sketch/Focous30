@@ -1,12 +1,14 @@
-
 import { execSync } from 'child_process';
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
+// FIX: Explicitly import process from node:process to resolve the 'exit' property error on the Process type.
+import process from 'node:process';
 
 // List of static files to copy from the root to the build output directory
 const staticFiles = [
   'README.md',
+  'privacy-policy.md',
   'ai-info.json',
   'robots.txt',
   'sitemap.xml',
@@ -40,6 +42,7 @@ async function copyStaticFiles() {
     }
   } catch (error) {
     console.error(`❌ Error copying static files: The '${buildDir}' directory might not exist.`, error);
+    // FIX: Using process.exit(1) to terminate the build on error.
     process.exit(1);
   }
 }
@@ -52,7 +55,6 @@ async function build() {
 
   try {
     // Step 1: Run the standard Vite build command.
-    // We use 'npx' to ensure Vite is resolved correctly from local dependencies.
     console.log('📦 Running vite build...');
     execSync('npx vite build', { stdio: 'inherit' });
     console.log('🎉 Vite build completed successfully.');
@@ -63,8 +65,8 @@ async function build() {
 
     console.log('✨ Build process finished successfully!');
   } catch (error) {
-    // The error from execSync will already be printed, so we just add a final message.
     console.error('❌ Build failed.');
+    // FIX: Using process.exit(1) to terminate the build on error.
     process.exit(1);
   }
 }

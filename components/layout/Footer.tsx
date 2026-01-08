@@ -11,6 +11,10 @@ const Footer: React.FC = () => {
           README
         </a>
         <span className="mx-2">|</span>
+        <a href="/privacy-policy.md" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400 transition">
+          Privacy Policy
+        </a>
+        <span className="mx-2">|</span>
         <a href="/sitemap.xml" target="_blank" rel="noopener noreferrer" className="hover:text-teal-400 transition">
           Sitemap
         </a>
