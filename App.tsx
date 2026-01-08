@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext.tsx';
@@ -14,13 +13,15 @@ import { Toaster } from 'react-hot-toast';
 const App: React.FC = () => {
   return (
     <AuthProvider>
-      <div className="min-h-screen bg-gray-900 text-gray-100 font-sans">
+      <div className="min-h-screen bg-[#0a0a0a] text-gray-100 font-sans selection:bg-teal-500/30">
         <Toaster
           position="top-center"
           toastOptions={{
             style: {
-              background: '#2d2d2d',
+              background: '#1e1e1e',
               color: '#f3f4f6',
+              border: '1px solid #333',
+              borderRadius: '12px',
             },
           }}
         />
@@ -40,7 +41,7 @@ const Router: React.FC = () => {
   return (
     <BrowserRouter>
       {user && profile && <Header />}
-      <main className="p-4 sm:p-6 lg:p-8">
+      <main className={`min-h-[calc(100vh-64px)] ${user && profile ? 'p-4 sm:p-6 lg:p-8' : ''}`}>
         <Routes>
           <Route
             path="/login"
@@ -77,7 +78,6 @@ const Router: React.FC = () => {
 interface ProtectedRouteProps {
   user: any;
   profile: any;
-  // FIX: Replaced JSX.Element with React.ReactElement to resolve namespace error
   children: React.ReactElement;
 }
 

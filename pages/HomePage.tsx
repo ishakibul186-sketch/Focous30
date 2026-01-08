@@ -10,9 +10,8 @@ import Card from '../components/ui/Card.tsx';
 import Input from '../components/ui/Input.tsx';
 import Checkbox from '../components/ui/Checkbox.tsx';
 import Spinner from '../components/ui/Spinner.tsx';
-// FIX: Import parseISO directly from its submodule to resolve module export error.
-import { differenceInDays } from 'date-fns';
-import parseISO from 'date-fns/parseISO';
+// Fix: Removed 'parseISO' from imports as it was reported missing; using native Date instead
+import { format, differenceInDays } from 'date-fns';
 
 const HomePage: React.FC = () => {
     const { user, profile } = useAuth();
@@ -48,10 +47,6 @@ const HomePage: React.FC = () => {
         setLog(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : type === 'number' ? Number(value) : value }));
     };
     
-    const handleToggle = (name: keyof typeof log, value: boolean) => {
-      setLog(prev => ({ ...prev, [name]: value }));
-    };
-
     const calculateScore = () => {
         let score = 0;
         const positiveHabits = [log.brush, log.personalHygiene, log.exercise, log.breakfast, log.lunch, log.energySave, log.eveningSnacks, log.nightStudy];
@@ -59,7 +54,7 @@ const HomePage: React.FC = () => {
         
         score += positiveHabitsCompleted;
         if (log.studyWorkHours > 0) score += 1;
-        if (log.sleepTime >= 7) score +=1;
+        if (log.sleepTime >= 7) score += 1;
         
         if (log.negativeSiteVisit) score -= 1;
         if (log.phoneUseAfter11) score -= 1;
@@ -82,73 +77,96 @@ const HomePage: React.FC = () => {
         try {
             const logRef = ref(db, `users_LifeRoutineAnalyzer/${user.uid}/dailyLogs/${today}`);
             await set(logRef, fullLog);
-            toast.success("Today's log saved successfully!");
+            toast.success("Progress saved.");
             setLogExists(true);
         } catch (error) {
             console.error(error);
-            toast.error("Failed to save today's log.");
+            toast.error("Save failed.");
         } finally {
             setIsSubmitting(false);
         }
     };
     
-    const dayCounter = profile ? differenceInDays(new Date(), parseISO(profile.startDate)) + 1 : 1;
+    // Fix: Using new Date(profile.startDate) instead of parseISO(profile.startDate)
+    const dayCounter = profile ? differenceInDays(new Date(), new Date(profile.startDate)) + 1 : 1;
 
     if (isLoading) {
-        return <div className="flex justify-center items-center h-64"><Spinner /></div>;
+        return <div className="flex justify-center items-center min-h-[60vh]"><Spinner /></div>;
     }
     
     if (logExists) {
         return (
-          <div className="text-center mt-10">
-              <Card>
-                <h2 className="text-3xl font-bold text-teal-400 mb-4">Well Done!</h2>
-                <p className="text-gray-300">You've already submitted your log for today. Come back tomorrow!</p>
-                <p className="text-lg text-white mt-2">Day {dayCounter} of 30</p>
+          <div className="max-w-2xl mx-auto py-12 animate-in fade-in slide-in-from-bottom-8 duration-700">
+              <Card className="text-center overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-teal-500 to-blue-500"></div>
+                <div className="w-20 h-20 bg-teal-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg className="w-10 h-10 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <h2 className="text-3xl font-black text-white mb-2">Cycle Complete</h2>
+                <p className="text-gray-400 mb-6">Your data for today is securely logged. Review your evolution in the dashboard.</p>
+                <div className="inline-block px-6 py-2 bg-white/5 border border-white/5 rounded-full text-xs font-bold text-teal-400 uppercase tracking-widest">
+                  Day {dayCounter} of 30
+                </div>
               </Card>
           </div>
         )
     }
 
     return (
-        <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8">
-                <h1 className="text-3xl md:text-4xl font-bold text-white">Daily Log for <span className="text-teal-400">{today}</span></h1>
-                <p className="text-gray-400 mt-2">Day <span className="font-semibold text-white">{dayCounter}</span> of your 30-day journey. Keep going!</p>
-            </div>
+        <div className="max-w-5xl mx-auto space-y-12 pb-20 animate-in fade-in slide-in-from-bottom-12 duration-1000">
+            <header className="text-center">
+                <div className="inline-block px-4 py-1.5 bg-teal-500/10 border border-teal-500/20 rounded-full text-[10px] font-black text-teal-400 uppercase tracking-[0.2em] mb-4">
+                  Evolution Protocol: Day {dayCounter}
+                </div>
+                <h1 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-2">Focus Daily <span className="text-teal-400">Log</span></h1>
+                <p className="text-gray-500 text-lg font-medium">{format(new Date(), 'EEEE, MMMM do')}</p>
+            </header>
+
             <form onSubmit={handleSubmit} className="space-y-8">
-                <Card title="🌅 Morning Routine">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <Checkbox label="Brush" name="brush" checked={log.brush} onChange={handleChange} />
-                        <Checkbox label="Hygiene" name="personalHygiene" checked={log.personalHygiene} onChange={handleChange} />
-                        <Checkbox label="Exercise" name="exercise" checked={log.exercise} onChange={handleChange} />
-                        <Checkbox label="Breakfast" name="breakfast" checked={log.breakfast} onChange={handleChange} />
-                    </div>
-                </Card>
-                <Card title="☀️ Daytime Routine">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <Checkbox label="Lunch" name="lunch" checked={log.lunch} onChange={handleChange} />
-                        <Input id="studyWorkHours" label="Study/Work (Hours)" name="studyWorkHours" type="number" min="0" value={log.studyWorkHours} onChange={handleChange} />
-                        <Checkbox label="Energy Save" name="energySave" checked={log.energySave} onChange={handleChange} />
-                    </div>
-                </Card>
-                <Card title="🌆 Evening Routine">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <Checkbox label="Evening Snacks" name="eveningSnacks" checked={log.eveningSnacks} onChange={handleChange} />
-                         <Input id="socialMediaTime" label="Social Media (Mins)" name="socialMediaTime" type="number" min="0" value={log.socialMediaTime} onChange={handleChange} />
-                        <Checkbox label="Bad Site Visit?" name="negativeSiteVisit" checked={log.negativeSiteVisit} onChange={handleChange} isNegative />
-                    </div>
-                </Card>
-                 <Card title="🌙 Night Routine">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <Checkbox label="Night Study" name="nightStudy" checked={log.nightStudy} onChange={handleChange} />
-                        <Input id="sleepTime" label="Sleep (Hours)" name="sleepTime" type="number" min="0" value={log.sleepTime} onChange={handleChange} />
-                        <Checkbox label="Phone after 11PM?" name="phoneUseAfter11" checked={log.phoneUseAfter11} onChange={handleChange} isNegative />
-                    </div>
-                </Card>
-                <div className="flex justify-end">
-                    <Button type="submit" disabled={isSubmitting}>
-                        {isSubmitting ? 'Saving...' : 'Save Today\'s Log'}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <Card title="Morning Rituals">
+                      <div className="grid grid-cols-2 gap-4">
+                          <Checkbox label="Brush" name="brush" checked={log.brush} onChange={handleChange} />
+                          <Checkbox label="Hygiene" name="personalHygiene" checked={log.personalHygiene} onChange={handleChange} />
+                          <Checkbox label="Exercise" name="exercise" checked={log.exercise} onChange={handleChange} />
+                          <Checkbox label="Breakfast" name="breakfast" checked={log.breakfast} onChange={handleChange} />
+                      </div>
+                  </Card>
+                  
+                  <Card title="Deep Work Focus">
+                      <div className="space-y-6">
+                        <div className="grid grid-cols-2 gap-4">
+                          <Checkbox label="Lunch" name="lunch" checked={log.lunch} onChange={handleChange} />
+                          <Checkbox label="Energy Save" name="energySave" checked={log.energySave} onChange={handleChange} />
+                        </div>
+                        <Input id="studyWorkHours" label="Study/Work Productivity" name="studyWorkHours" type="number" min="0" suffix="Hours" value={log.studyWorkHours} onChange={handleChange} />
+                      </div>
+                  </Card>
+
+                  <Card title="Evening Recovery">
+                      <div className="space-y-6">
+                        <div className="grid grid-cols-1 gap-4">
+                          <Checkbox label="Evening Snacks" name="eveningSnacks" checked={log.eveningSnacks} onChange={handleChange} />
+                          <Checkbox label="Negative Site Visit" name="negativeSiteVisit" checked={log.negativeSiteVisit} onChange={handleChange} isNegative />
+                        </div>
+                        <Input id="socialMediaTime" label="Social Entertainment" name="socialMediaTime" type="number" min="0" suffix="Minutes" value={log.socialMediaTime} onChange={handleChange} />
+                      </div>
+                  </Card>
+                  
+                  <Card title="Nocturnal Discipline">
+                      <div className="space-y-6">
+                        <div className="grid grid-cols-2 gap-4">
+                          <Checkbox label="Night Study" name="nightStudy" checked={log.nightStudy} onChange={handleChange} />
+                          <Checkbox label="Late Phone" name="phoneUseAfter11" checked={log.phoneUseAfter11} onChange={handleChange} isNegative />
+                        </div>
+                        <Input id="sleepTime" label="Sleep Duration" name="sleepTime" type="number" min="0" suffix="Hours" value={log.sleepTime} onChange={handleChange} />
+                      </div>
+                  </Card>
+                </div>
+
+                <div className="flex justify-center md:justify-end pt-8">
+                    <Button type="submit" className="w-full md:w-auto" disabled={isSubmitting}>
+                        {isSubmitting ? 'Syncing Data...' : 'Confirm Daily Entry'}
                     </Button>
                 </div>
             </form>

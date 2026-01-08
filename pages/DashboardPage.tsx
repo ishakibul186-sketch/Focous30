@@ -6,10 +6,9 @@ import { ref, get } from 'firebase/database';
 import { DailyLog } from '../types.ts';
 import Spinner from '../components/ui/Spinner.tsx';
 import Card from '../components/ui/Card.tsx';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell, Tooltip as RechartsTooltip } from 'recharts';
-// FIX: Import subDays directly from its submodule to resolve module export error.
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
+// Fix: Removed 'subDays' from imports as it was reported missing; using native Date instead
 import { format } from 'date-fns';
-import subDays from 'date-fns/subDays';
 
 const DashboardPage: React.FC = () => {
   const { user, profile } = useAuth();
@@ -31,7 +30,10 @@ const DashboardPage: React.FC = () => {
         const allLogs: DailyLog[] = [];
 
         for (let i = 0; i < 30; i++) {
-            const date = subDays(today, i);
+            // Fix: Manual date subtraction instead of using missing 'subDays'
+            const date = new Date(today);
+            date.setDate(today.getDate() - i);
+            
             if (date < startDate) break;
 
             const dateString = format(date, 'yyyy-MM-dd');

@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation | Focus30</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #0a0a0a; color: #e5e7eb; }
+        .glass { background: rgba(30, 30, 30, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .step { border-left: 2px solid #2dd4bf; padding-left: 1.5rem; position: relative; }
+        .step::before { content: ""; position: absolute; left: -5px; top: 0; width: 8px; height: 8px; background: #2dd4bf; border-radius: 50%; }
+    </style>
+</head>
+<body class="min-h-screen py-12 px-4">
+    <div class="max-w-4xl mx-auto">
+        <header class="mb-12">
+            <h1 class="text-4xl font-black text-white">Using <span class="text-teal-400">Focus30</span></h1>
+            <p class="text-gray-500 mt-2 text-lg">Your step-by-step guide to mastering discipline.</p>
+        </header>
+
+        <div class="glass p-10 rounded-3xl shadow-2xl space-y-12">
+            <div class="step">
+                <h2 class="text-xl font-bold text-white mb-2">1. Authentic Account Setup</h2>
+                <p class="text-gray-400">Sign up using your preferred User ID. The system automatically handles your unique @focous30.com identity.</p>
+            </div>
+
+            <div class="step">
+                <h2 class="text-xl font-bold text-white mb-2">2. Profile Initialization</h2>
+                <p class="text-gray-400">Define your primary goal for the next 30 days. This sets the context for your analytics.</p>
+            </div>
+
+            <div class="step">
+                <h2 class="text-xl font-bold text-white mb-2">3. Daily Logging</h2>
+                <p class="text-gray-400">Each night, log your habits for the four phases of the day: Morning, Daytime, Evening, and Night.</p>
+            </div>
+
+            <div class="step">
+                <h2 class="text-xl font-bold text-white mb-2">4. Analyze Your Progress</h2>
+                <p class="text-gray-400">Visit the Dashboard to see real-time charts of your daily scores and habit completion trends.</p>
+            </div>
+
+            <div class="mt-12 pt-8 border-t border-gray-800 flex justify-between items-center">
+                <p class="text-gray-600 text-sm">Need help? Contact Shakibul Islam.</p>
+                <a href="/" class="bg-teal-500 hover:bg-teal-400 text-black font-bold py-2 px-6 rounded-lg transition-all">
+                    Start Now
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

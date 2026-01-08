@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -8,13 +7,10 @@ interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Checkbox: React.FC<CheckboxProps> = ({ label, name, checked, onChange, isNegative = false }) => {
-  const bgColor = checked ? (isNegative ? 'bg-red-500' : 'bg-teal-500') : 'bg-gray-600';
-  const ringColor = isNegative ? 'focus:ring-red-500' : 'focus:ring-teal-500';
-
   return (
-    <label htmlFor={name} className="flex flex-col items-center justify-center p-4 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600 transition">
-        <div className="text-center text-sm font-medium text-gray-300 mb-2">{label}</div>
-        <div className="relative inline-block w-10 h-6">
+    <label htmlFor={name} className={`flex flex-col items-center justify-between p-5 rounded-3xl cursor-pointer transition-all duration-300 border ${checked ? (isNegative ? 'bg-red-500/10 border-red-500/30' : 'bg-teal-500/10 border-teal-500/30') : 'bg-gray-800/40 border-white/5 hover:bg-gray-800/60 hover:border-white/10'}`}>
+        <div className={`text-center text-xs font-bold uppercase tracking-widest mb-4 transition-colors ${checked ? (isNegative ? 'text-red-400' : 'text-teal-400') : 'text-gray-500'}`}>{label}</div>
+        <div className="relative inline-block w-12 h-7">
           <input
             type="checkbox"
             id={name}
@@ -23,8 +19,8 @@ const Checkbox: React.FC<CheckboxProps> = ({ label, name, checked, onChange, isN
             onChange={onChange}
             className="sr-only"
           />
-          <div className={`block ${bgColor} w-10 h-6 rounded-full`}></div>
-          <div className={`dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${checked ? 'transform translate-x-full' : ''}`}></div>
+          <div className={`block w-full h-full rounded-full transition-colors duration-300 ${checked ? (isNegative ? 'bg-red-500' : 'bg-teal-400') : 'bg-gray-700'}`}></div>
+          <div className={`dot absolute left-1 top-1 bg-white w-5 h-5 rounded-full shadow-lg transition-transform duration-300 ${checked ? 'transform translate-x-5' : ''}`}></div>
         </div>
     </label>
   );

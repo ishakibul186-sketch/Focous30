@@ -1,53 +1,78 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     
     <!-- SEO Meta Tags -->
-    <title>Focus30 – Daily Discipline & Life Routine Analyzer</title>
-    <meta name="description" content="A 30-day routine analyzer to help users build discipline, track daily habits, and visualize their progress through an analytics dashboard." />
-    <meta name="keywords" content="habit tracker, discipline, daily routine, focus, life analyzer, productivity, self-improvement, firebase, focous, focous30, 30, daily challenge, challenge, react" />
+    <title>Focus30 – Master Your Discipline</title>
+    <meta name="description" content="A premium 30-day routine analyzer. Build iron-clad discipline, track daily habits, and visualize your evolution through advanced analytics." />
+    <meta name="keywords" content="focous30, habit tracker, discipline, productivity, analytics, self-improvement, react app, dashboard" />
     <link rel="canonical" href="https://build-by-prohor.vercel.app" />
-    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
-    <!-- Open Graph / Facebook -->
+    <!-- Static Page SEO Links -->
+    <link rel="about" href="/about.html" />
+    <link rel="help" href="/docs.html" />
+    <link rel="privacy-policy" href="/privacy-policy.html" />
+    <link rel="terms-of-service" href="/terms.html" />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Focus30 Routine Analyzer",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "Web",
+      "url": "https://build-by-prohor.vercel.app",
+      "description": "Transform your life in 30 days with data-driven habit tracking.",
+      "creator": {
+        "@type": "Person",
+        "name": "Shakibul Islam"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Build By prohor",
+        "url": "https://build-by-prohor.vercel.app"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+    <!-- Social Metadata -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://build-by-prohor.vercel.app" />
-    <meta property="og:title" content="Focus30 – Daily Discipline & Life Routine Analyzer" />
-    <meta property="og:description" content="Build discipline and track your daily habits with an analytics dashboard." />
-    
-    <!-- Twitter -->
+    <meta property="og:title" content="Focus30 – Daily Discipline Analyzer" />
+    <meta property="og:description" content="Transform your life in 30 days with data-driven habit tracking." />
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://build-by-prohor.vercel.app" />
-    <meta property="twitter:title" content="Focus30 – Daily Discipline & Life Routine Analyzer" />
-    <meta property="twitter:description" content="Build discipline and track your daily habits with an analytics dashboard." />
-<script type="importmap">
+  <script type="importmap">
 {
   "imports": {
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "recharts": "https://esm.sh/recharts@^3.6.0",
-    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
-    "vite": "https://esm.sh/vite@^7.3.1",
-    "firebase/": "https://esm.sh/firebase@^12.7.0/",
-    "path": "https://esm.sh/path@^0.12.7",
-    "fs/": "https://esm.sh/fs@^0.0.1-security/",
-    "react/": "https://esm.sh/react@^19.2.3/",
     "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
     "react-router-dom": "https://esm.sh/react-router-dom@^7.12.0",
-    "url": "https://esm.sh/url@^0.11.4",
-    "date-fns/": "https://esm.sh/date-fns@^4.1.0/",
-    "date-fns": "https://esm.sh/date-fns@^4.1.0",
     "react-hot-toast": "https://esm.sh/react-hot-toast@^2.6.0",
-    "child_process": "https://esm.sh/child_process@^1.0.2"
+    "firebase/": "https://esm.sh/firebase@^12.7.0/",
+    "date-fns": "https://esm.sh/date-fns@^4.1.0",
+    "recharts": "https://esm.sh/recharts@^3.6.0",
+    "fs/": "https://esm.sh/fs@^0.0.1-security/",
+    "path": "https://esm.sh/path@^0.12.7",
+    "url": "https://esm.sh/url@^0.11.4",
+    "vite": "https://esm.sh/vite@^7.3.1",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"
   }
 }
 </script>
 <link rel="stylesheet" href="/index.css">
 </head>
-  <body class="bg-gray-900">
+  <body class="bg-[#050505] text-gray-200 antialiased overflow-x-hidden">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
   </body>
