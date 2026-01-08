@@ -15,7 +15,8 @@ const staticFiles = [
   'about.html',
   'docs.html',
   'privacy-policy.html',
-  'terms.html'
+  'terms.html',
+  'googlead42dd66f9e0cb82.html' // Added Google verification file
 ];
 
 const buildDir = 'dist';
